@@ -340,20 +340,22 @@
                         html += "<tr>"
                         for (var j = 0; j < grid[i].length; j++) {
                             if(grid[i][j] == "<td width='150' align='center'>A</td>" || grid[i][j] == "<td width='150' align='center'>B</td>"){
+                                html = html.substring(0, html.length - 4);
                                 break;
                             }
                             html += grid[i][j];
                         }
                         html += "</tr>"
+                        if(grid[i][j] == "<td width='150' align='center'>A</td>" || grid[i][j] == "<td width='150' align='center'>B</td>"){
+                            html = html.substring(0, html.length - 4);
+                        }
                     }
                     $(".table").html(html);
-                    console.log(html);
                 },"JSON")
         });
         $(document).mousemove(function(event){
             $(".explain").css("left", event.pageX+10)
                          .css("top", event.pageY+10);
-            //console.log(event.pageX, event.pageY);
         });
         $("#show").mouseout(function(event){
             $(".explain").css("display", "none");
@@ -378,7 +380,6 @@
                                  .click(function(){
                                     var temp = $(this).attr('time').split(",");
                                     result = search_action($(this), 'check');
-                                    console.log(result);
                                     if(!result){
                                         window.alert('衝堂');
                                         return;
@@ -431,22 +432,20 @@
                     }
                 }
                 var tr = $("tr")
-                for(var j = 0; j < tr.length; j++){
-                    if(j>=start && j<=end){
-                        var td = $(tr[j]).children('td');
-                        switch(action){
-                            case 'check':
-                                if($(td[col]).text().charCodeAt(0) != 160){
-                                    return false;
-                                }
-                                break;
-                            case 'fill':
-                                $(td[col]).text(resource.text());
-                                break;
-                            case 'remove':
-                                $(td[col]).text(String.fromCharCode(160));
-                                break;
-                        }
+                for(var j = start; j <= end; j++){
+                    var td = $(tr[j]).children('td');
+                    switch(action){
+                        case 'check':
+                            if($(td[col]).text().charCodeAt(0) != 160 && $(td[col]).text().length != 0){
+                                return false;
+                            }
+                            break;
+                        case 'fill':
+                            $(td[col]).text(resource.text());
+                            break;
+                        case 'remove':
+                            $(td[col]).text(String.fromCharCode(160));
+                            break;
                     }
                 }
             };
