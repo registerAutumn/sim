@@ -95,7 +95,7 @@ def login(username, password):
     resp = s.post(login_url, data=payload).content
     return 'f_index.html' in resp
 
-@app.route("/getCourse")
+@app.route("/getCourse", methods=['GET'])
 def getCourse():
     payload = {
         "yms":"103,2",
