@@ -21,6 +21,7 @@
           </div><!-- /.container-fluid -->
         </nav>
         <div class="explain"></div>
+        <div id="showTime" class="explain showTime"></div>
         <div class="left">
             <select name="unit" id="unit" class="form-control">
                 <option value="%" selected="">所有科系</option>
@@ -117,11 +118,11 @@
             <br>
             <input type="text" class="form-control" id="keys" placeholder="搜尋課程名稱"><br />
             
-            <input type='button' value='Search' onclick="search()" class='Search-button'>
+            <input type='button' value='搜尋' onclick="search()" class='Search-button'>
 
-            <input type='button' value='Restore' onclick="restore()" class='Search-button' style='margin-right: 10px;'>
+            <input type='button' value='復原上次存檔' onclick="restore()" class='Search-button' style='margin-right: 10px;'>
             
-            <input type='button' value='Save' onclick="save()" class='Search-button' style='margin-right: 10px;'>
+            <input type='button' value='儲存選課' onclick="save()" class='Search-button' style='margin-right: 10px;'>
 
             </br><div id="show" class="detail">
             </div>
