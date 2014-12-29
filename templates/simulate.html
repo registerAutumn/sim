@@ -11,12 +11,14 @@
         body{
             /*overflow-y: hidden;*/
         }
+
         .left{
             width:30%;
             height: 100%;
             padding: 5% 10px 0px 10px;
             float: left;
         }
+
         .right{
             width: 70%;
             height: 100%;
@@ -24,11 +26,11 @@
             float: left;
         }
 
-        .right>table{
+        .right{
             margin: auto;
         }
 
-        .right>table>tr>td{
+        .right>tr>td{
             height: 30px;
             line-height: 30px;
         }
@@ -39,7 +41,7 @@
             overflow-x: hidden;
             overflow-y: auto;
             border: 1px solid #ababab;
-            border-radius: 5px;
+            border-radius: 0px;
             margin-top: 10px;
         }
 
@@ -68,9 +70,118 @@
             line-height: 20px;
             font-size: 16px;
         }
+        .Search-button {
+        position: relative;
+        vertical-align: top;
+        width: 30%;
+        height: 40px;
+        padding: 0;
+        font-size: 22px;
+        color: white;
+        text-align: center;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+        background: #3498db;
+        border: 0;
+        border-bottom: 2px solid #2a8bcc;
+        cursor: pointer;
+        -webkit-box-shadow: inset 0 -2px #2a8bcc;
+        box-shadow: inset 0 -2px #2a8bcc;
+        float: right;
+        }
+        .Search-button:active {
+            top: 1px;
+            outline: none;
+            -webkit-box-shadow: none;
+            box-shadow: none;
+        }
+        .responstable {
+          margin: 1em 0;
+          width: 100%;
+          overflow: hidden;
+          background: #FFF;
+          color: #024457;
+          border-radius: 0px;
+          border: 2px solid #167F92;
+        }
+        .responstable tr {
+          border: 1px solid #D9E4E6;
+        }
+        .responstable tr:nth-child(odd) {
+          background-color: #EAF3F3;
+        }
+        .responstable th {
+          display: none;
+          border: 1px solid #FFF;
+          background-color: #167F92;
+          color: #FFF;
+          padding: 1em;
+        }
+        .responstable th:first-child {
+          display: table-cell;
+          text-align: center;
+        }
+        .responstable th:nth-child(2) {
+          display: table-cell;
+        }
+        .responstable th:nth-child(2) span {
+          display: none;
+        }
+        .responstable th:nth-child(2):after {
+          content: attr(data-th);
+        }
+        @media (min-width: 480px) {
+          .responstable th:nth-child(2) span {
+            display: block;
+          }
+          .responstable th:nth-child(2):after {
+            display: none;
+          }
+        }
+        .responstable td {
+          display: block;
+          word-wrap: break-word;
+          max-width: 7em;
+        }
+        .responstable td:first-child {
+          display: table-cell;
+          text-align: center;
+          border-right: 1px solid #D9E4E6;
+        }
+        @media (min-width: 480px) {
+          .responstable td {
+            border: 1px solid #D9E4E6;
+          }
+        }
+        .responstable th, .responstable td {
+          text-align: left;
+          margin: .5em 1em;
+        }
+        @media (min-width: 480px) {
+          .responstable th, .responstable td {
+            display: table-cell;
+            padding: 1em;
+          }
+        }
+
+        body {
+          padding: 0 2em;
+          font-family: Arial, sans-serif;
+          color: #024457;
+          background: #f2f2f2;
+        }
+
+        h1 {
+          font-family: Verdana;
+          font-weight: normal;
+          color: #024457;
+        }
+        h1 span {
+          color: #167F92;
+        }
+
     </style>
     <body>
-        <div class="explain">Testing</div>
+
         <div class="left">
             <select name="unit" id="unit" class="form-control">
                 <option value="%" selected="">所有科系</option>
@@ -165,17 +276,17 @@
                 <option value="XS01">中心計劃短期班</option>
             </select>
             <br>
-            <input type="text" class="form-control" id="keys" placeholder="搜尋課程名稱" value="工程"><br />
-            <center>
-                <input type='button' value='Search' onclick="search()" class='btn btn-default'>
-            </center>
-            <div id="show" class="detail">
+            <input type="text" class="form-control" id="keys" placeholder="搜尋課程名稱"><br />
+            
+            <input type='button' value='Search' onclick="search()" class='Search-button'>
+            
+            </br><div id="show" class="detail">
             </div>
             <div id="remove" class="detail">
             </div>
         </div>
         <div class="right">
-            <table class='table'>
+            <table class='responstable'>
                 <tr>
                     <td valign="middle" width='150' align='center'>時間</td>
                     <td valign="middle" width='150' align='center'>一</td>
@@ -350,7 +461,7 @@
                             html = html.substring(0, html.length - 4);
                         }
                     }
-                    $(".table").html(html);
+                    $(".responstable").html(html);
                 },"JSON")
         });
         $(document).mousemove(function(event){
@@ -392,6 +503,7 @@
                                             search_action($(this), 'remove');
                                             $(this).remove();
                                         }
+                                        
                                     });
                                     clone.appendTo("#remove");
                                     $(this).remove();
