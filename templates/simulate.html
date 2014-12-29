@@ -482,6 +482,10 @@
                 },
                 function(success){
                     data = eval(success).data;
+                    if(data.length == 0){
+                        var li = $("<li>").text("沒有\"" + $("#keys").val() +"\"的課程");
+                        li.appendTo($("#show"));
+                    }
                     for (var i = 0; i < data.length; i++) {
                         d = data[i];
                         var li = $("<li>")
@@ -512,6 +516,9 @@
                                     $(".explain").html($(this).attr('message'));
                                     $(".explain").css("display", "block");
                                  }).text(d.courseName + "--" + d.className);
+                        if(!search_action($(li), 'check')){
+                            $(li).attr("message", "衝堂").click(undefined);
+                        }
                         $("#show").append(li);
                     };
                 },
