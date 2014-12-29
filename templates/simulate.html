@@ -390,8 +390,8 @@
                                         var check = confirm('確定要刪除?');
                                         if(check){
                                             search_action($(this), 'remove');
+                                            $(this).remove();
                                         }
-                                        $(this).remove();
                                     });
                                     clone.appendTo("#remove");
                                     $(this).remove();
