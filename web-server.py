@@ -109,7 +109,7 @@ def getCourse():
     td = table[1].xpath('//td[@bgcolor="#FFFcee"]')
     grid = []
     count = 0
-    format = "<td width='150' align='center'>%s</td>"
+    format = "<td width='200' align='center'>%s</td>"
     row = []
     for i in td:
         row = [format % week[count / 7]] if count % 7 == 0 else row
