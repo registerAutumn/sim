@@ -22,11 +22,6 @@ function search(){
                          .click(function(){
                             var temp = $(this).attr('time').split(",");
                             if($(this).attr("message") == "衝堂"){ return false;}
-                            result = search_action($(this), 'check');
-                            if(!result){
-                                window.alert('衝堂');
-                                return;
-                            }
                             search_action($(this), 'fill')
                             var clone = $(this).clone()
                             clone.click(function(){
@@ -38,14 +33,24 @@ function search(){
                             });
                             clone.appendTo("#remove");
                             $(this).remove();
-                            console.log($("#remove > li"));
+                            var li = $("#show>li");
+                            for(var i = 0; i < li.length; i++){
+                                result = search_action($(li[i]), 'check');
+                                if(!result){
+                                    $(li[i]).remove();
+                                }
+                            }
                          })
                          .mouseover(function(){
-                            $(".explain").html($(this).attr('message'));
-                            $(".explain").css("display", "block");
+                            $(".explain").eq(0).html($(this).attr('message'));
+                            $(".explain").eq(0).css("display", "block");
+                            search_action($(this), 'fill')
+                         }).mouseout(function(){
+                            search_action($(this), 'remove')
                          }).text(d.courseName);
                 if(!search_action($(li), 'check')){
                     $(li).attr("message", "衝堂").click(undefined);
+                    continue;
                 }
                 if(search_action($(li), 'is_exists')){
                     $("#show").append(li);                            
@@ -65,19 +70,30 @@ function load_course(){
             for (var i = 0; i < grid.length; i++) {
                 html += "<tr>"
                 for (var j = 0; j < grid[i].length; j++) {
-                    if(grid[i][j] == "<td width='200' align='center'>A</td>" || grid[i][j] == "<td width='200' align='center'>B</td>"){
+                    if(grid[i][j] == "<td width='200' align='center' tags='A'>A</td>" || grid[i][j] == "<td width='200' align='center' tags='B'>B</td>"){
                         html = html.substring(0, html.length - 4);
                         break;
                     }
                     html += grid[i][j];
                 }
                 html += "</tr>"
-                if(grid[i][j] == "<td width='200' align='center'>A</td>" || grid[i][j] == "<td width='200' align='center'>B</td>"){
+                if(grid[i][j] == "<td width='200' align='center' tags='A'>A</td>" || grid[i][j] == "<td width='200' align='center' tags='B'>B</td>"){
                     html = html.substring(0, html.length - 4);
                 }
             }
             $(".responstable").html(html);
             restore();
+            var td = $("td");
+            for(var i = 0 ; i < td.length; i++){
+                $(td[i]).mouseover(function(){
+                    if($(this).attr("tags").length != 0){
+                        $("#showTime").html($(this).attr("tags"));
+                        $("#showTime").css("display", "block");
+                    }
+                }).mouseout(function(){
+                    $("#showTime").css("display", "none");
+                });
+            }
         },
         "JSON"
     );

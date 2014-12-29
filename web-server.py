@@ -21,12 +21,34 @@ session_pool = {}
 week = ["M", "第一節", "第二節", "第三節", "第四節", "A", "第五節", "第六節", "第七節",\
          "第八節", "B", "第十一節", "第十二節", "第十三節", "第十四節"]
 
+times = [
+            "<br/>0730<br/>-<br/>0800",
+            "<br/>0810<br/>-<br/>0900",
+            "<br/>0910<br/>-<br/>1000",
+            "<br/>1010<br/>-<br/>1100",
+            "<br/>1110<br/>-<br/>1200",
+            "",
+            "<br/>1330<br/>-<br/>1420",
+            "<br/>1430<br/>-<br/>1520",
+            "<br/>1530<br/>-<br/>1620",
+            "<br/>1630<br/>-<br/>1720",
+            "",
+            "<br/>1810<br/>-<br/>1900",
+            "<br/>1910<br/>-<br/>2000",
+            "<br/>2010<br/>-<br/>2100",
+            "<br/>2110<br/>-<br/>2200",
+        ]
+
 host_url = "http://mss.kuas.edu.tw/api/%s"
 login_url = "http://140.127.113.231/kuas/perchk.jsp"
 course_url = "http://140.127.113.231/kuas/ag_pro/ag222.jsp"
 search_url = "Course/GetCourse"
 
 API_KEY = "5Dcb9a^J5ULIR^e"
+
+@app.errorhandler(500)
+def page_not_found(error):
+    return redirect(url_for('index'))
 
 @app.route("/", methods=['POST', 'GET'])
 def index():
@@ -116,12 +138,12 @@ def getCourse():
     td = table[1].xpath('//td[@bgcolor="#FFFcee"]')
     grid = []
     count = 0
-    format = "<td width='200' align='center'>%s</td>"
+    format = "<td width='200' align='center' tags='%s'>%s</td>"
     row = []
     for i in td:
-        row = [format % week[count / 7]] if count % 7 == 0 else row
+        row = [format % (week[count / 7] + times[count / 7], week[count / 7])] if count % 7 == 0 else row
         content = i.text.replace(' ', '').replace('\n', '').replace('\r', '')
-        row.append(format % content)
+        row.append(format % ('', content))
         count += 1
         if count % 7 == 0:
             grid.append(row)

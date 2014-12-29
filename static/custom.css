@@ -60,6 +60,19 @@ body{
     line-height: 20px;
     font-size: 16px;
 }
+
+.showTime{
+    border: 1px solid #cfcfcf;
+    background: #cfcfcf;
+    position: absolute;
+    display: none;
+    width: 100px;
+    height: auto;
+    line-height: 20px;
+    font-size: 16px;
+    text-align: center;
+}
+
 .Search-button {
 position: relative;
 vertical-align: top;
