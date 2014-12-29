@@ -3,7 +3,7 @@
         <title>模擬選課－選課</title>
         <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
         <link rel="stylesheet" href="static/bootstrap.css">
-        <link rel="stylesheet" href="static/bootstrap-theme.css">
+        <link rel="stylesheet" href="static/bootstrap-theme.min.css">
         <link rel="stylesheet" href="static/custom.css">
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
         <script src="static/bootstrap.js"></script>
@@ -12,9 +12,10 @@
     <body>
         <nav class="navbar navbar-default navbar-fixed-top">
           <div class="container-fluid">
+            <a class="navbar-brand" href="/">KUAS.CC</a>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="margin-right: 20%;">
-              <ul class="nav navbar-nav navbar-right">
+              <ul class="nav navbar-nav navbar-left">
                 <li class="active"><a href="/Simulation">模擬選課</a></li>
               </ul>
             </div><!-- /.navbar-collapse -->
@@ -116,14 +117,8 @@
                 <option value="XS01">中心計劃短期班</option>
             </select>
             <br>
-            <input type="text" class="form-control" id="keys" placeholder="搜尋課程名稱"><br />
-            
-            <input type='button' value='搜尋' onclick="search()" class='Search-button'>
-
-            <input type='button' value='復原上次存檔' onclick="restore()" class='Search-button' style='margin-right: 10px;'>
-            
-            <input type='button' value='儲存選課' onclick="save()" class='Search-button' style='margin-right: 10px;'>
-
+            <input type="text" class="form-control-static col-lg-8" id="keys" placeholder="搜尋課程名稱">
+            <input type='button' value='搜尋' onclick="search()" class='btn btn-primary pull-right col-lg-2'><br />
             </br><div id="show" class="detail">
             </div>
             <div id="remove" class="detail">
@@ -283,6 +278,8 @@
                     <td valign="middle" width='200' align='center'>&nbsp;</td>
                 </tr>
             </table>
+            <input type='button' value='暫存課表' onclick="save()" class='btn btn-primary' style='margin-right: 10px;'>
+            <input type='button' value='載入暫存' onclick="restore()" class='btn btn-primary pull-right' style='margin-right: 10px;'>
         </div>
     </body>
     <script>
