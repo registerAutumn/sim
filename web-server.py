@@ -3,11 +3,18 @@ from flask import Flask, render_template, request, session
 from flask import redirect, url_for
 from lxml import etree
 import requests
+import MySQLdb
 import json
 import os
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
+db = MySQLdb.connect("localhost", "Simulate", "Simulate", "simulate", charset="utf8")
+cursor = db.cursor()
+
+insert_sql = "insert into course_store value('%s', '%s')"
+select_sql = "select * from course_store where course_uid = '%s'"
+delete_sql = "delete from course_store where course_uid = '%s'"
 
 session_pool = {}
 
@@ -121,6 +128,43 @@ def getCourse():
             row = []
     return json.dumps(grid)
 
+@app.route("/restore", methods=['POST'])
+def restore():
+    if request.method == 'POST':
+        msg = {}
+        msg['success'] = True
+        if check(session['uid']) :
+            cursor.execute(select_sql % session['uid'])
+            result = cursor.fetchall()
+            uid, table = result[0]
+            msg['table'] = table
+        else:
+            msg['success'] = False
+
+        return json.dumps(msg)
+
+
+@app.route("/store", methods=['POST'])
+def store():
+    if request.method == 'POST':
+        data = request.form['data']
+        if check(session['uid']):
+            cursor.execute( delete_sql % session['uid'])
+            db.commit()
+        if data != "":
+            if data.find("script") != -1: 
+                return json.dumps({"success": False})
+            cursor.execute( insert_sql % (session['uid'], data))
+            db.commit()
+        return json.dumps({"success": True})
+    return "Error"
+
+def check(uid):
+    sql = select_sql % uid
+    print sql
+    cursor.execute(sql)
+    result = cursor.fetchall()
+    return not len(result) == 0
 
 if __name__ == '__main__':
-    app.run(host='localhost', debug=True, port=35189)
+    app.run(host='0.0.0.0', debug=True, port=35189)
