@@ -161,7 +161,6 @@ def store():
 
 def check(uid):
     sql = select_sql % uid
-    print sql
     cursor.execute(sql)
     result = cursor.fetchall()
     return not len(result) == 0
