@@ -100,7 +100,12 @@ function load_course(){
 }
 
 function search_action(resource, action){
-    var temp = resource.attr('time').replace('M', 0).split(",");
+
+    var temp = resource.attr('time').replace('M', 0);
+    while(temp.indexOf("M") != -1){
+        temp = temp.replace('M', 0);
+    }
+    temp = temp.split(",");
     for (var i = 1; i < temp.length; i+=2) {
         if(cols.indexOf(temp[i])!=-1){
             var col = cols.indexOf(temp[i]);
