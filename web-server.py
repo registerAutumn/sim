@@ -46,6 +46,10 @@ search_url = "Course/GetCourse"
 
 API_KEY = "5Dcb9a^J5ULIR^e"
 
+files = open('teacher', 'rb')
+content = files.read()
+content = json.loads(content)
+
 @app.errorhandler(500)
 def page_not_found(error):
     return redirect(url_for('index'))
@@ -53,6 +57,32 @@ def page_not_found(error):
 @app.route("/", methods=['POST', 'GET'])
 def index():
     return render_template('index.html')
+
+@app.route("/Teacher")
+def teacher():
+    return render_template('teacher_commit.html')
+
+@app.route("/getUnit", methods=['POST'])
+def getUnit():
+    if request.method == 'POST':
+        return_string = ""
+        html = "<optgroup label='%s'>"
+        for i in content:
+            return_string += html % i
+            option = "<option value='%s,%s'>%s</option>"
+            for j in content[i]:
+                return_string += option % (i, j, j) 
+        return return_string
+
+@app.route("/getTeacher", methods=['POST'])
+def getTeacher():
+    if request.method == 'POST':
+        unit = request.form['unit'].split(',')
+        return_string = ""
+        option = "<option value='%s'>%s</option>"
+        for i in content[unit[0]][unit[1]]:
+            return_string += option % (i.encode('utf-8', 'ignore'), i.encode('utf-8', 'ignore'))
+        return return_string
 
 @app.route("/Simulation")
 def simulation():

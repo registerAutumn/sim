@@ -2,6 +2,14 @@ body{
     /*overflow-y: hidden;*/
 }
 
+.upper{
+  margin-top: 50px;
+  width: 100%;
+  height: 70px;
+  padding-top:10px;
+  text-align: center;
+}
+
 .left{
     width:30%;
     height: 100%;
