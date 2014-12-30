@@ -25,7 +25,6 @@ function search(){
                          .attr("time", d.courseTime)
                          .attr("message", "上課時間：" + d.Time + "<br>上課地點：" + d.courseRoom + "<br>上課班級：" + d.className + "<br>開課老師：" + d.courseTeacher)
                          .click(function(){
-                            check_login();
                             var temp = $(this).attr('time').split(",");
                             search_action($(this), 'fill')
                             var clone = $(this).clone()
@@ -228,7 +227,6 @@ function checked(){
             message = eval(success);
             if(message.success){
                 $(".lightbox").fadeOut('500');
-                save();
                 load_course();
             }else{
                 alert(message.message);
