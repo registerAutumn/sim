@@ -18,13 +18,28 @@ body{
 
 .block{
   width: 70%;
-  height: 200px;
+  height: auto;
   border: 1px solid #FF8800;
   border-radius: 5px;
   background: #FFBB66;
   margin: auto;
   margin-top: 20px;
   padding-left: 10px;
+}
+
+.block>li{
+  list-style: none;
+  text-align: left;
+  font-size: 18px;
+  line-height: 25px;
+  height: 25px;
+  margin-top: 5px;
+  margin-right: 10px;
+  margin-bottom: 5px;
+  font-style: italic;
+  border: 1px solid #77FF00;
+  border-radius: 5px;
+  background: #BBFF66;
 }
 
 .left{

@@ -13,7 +13,9 @@ db = MySQLdb.connect("localhost", "Simulate", "Simulate", "simulate", charset="u
 cursor = db.cursor()
 
 insert_sql = "insert into course_store value('%s', '%s')"
+insert_comment_sql = "insert into teacher_comment value('%s', '%s', '%s')"
 select_sql = "select * from course_store where course_uid = '%s'"
+select_comment_sql = "select * from teacher_comment where teacher_name='%s' && teacher_class='%s'"
 delete_sql = "delete from course_store where course_uid = '%s'"
 
 session_pool = {}
@@ -63,6 +65,15 @@ def index():
 def teacher():
     return render_template('teacher_commit.html')
 
+@app.route("/addComment", methods=['POST'])
+def addComment():
+    if request.method == 'POST':
+        courseName = request.form['courseName'].split(",")
+        comment = request.form['data']
+        cursor.execute(insert_comment_sql % (courseName[1], courseName[0], comment))
+        db.commit()
+        return json.dumps({"success": True})
+
 @app.route("/getUnit", methods=['POST'])
 def getUnit():
     if request.method == 'POST':
@@ -103,6 +114,14 @@ def getTeacher():
                     return_data[i['courseTeacher']]['comment'] = []
                     return_data[i['courseTeacher']]['courseName'] = i['courseName']
                 return_data[i['courseTeacher']]['open_class'].append(i['className'])
+                cursor.execute(select_comment_sql % (i['courseTeacher'], i['courseName']))
+                print select_comment_sql % (i['courseTeacher'], i['courseName'])
+                result = cursor.fetchall()
+                print len(result)
+                if len(result) != 0:
+                    for j in result:
+                        courseName, courseClass, comment = j
+                        return_data[i['courseTeacher']]['comment'].append(comment)
         message['data'] = return_data
         return json.dumps(message)
     else:
