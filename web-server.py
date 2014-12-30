@@ -55,11 +55,11 @@ content = json.loads(content)
 
 @app.errorhandler(500)
 def page_not_found(error):
-    return redirect(url_for('index'))
+    return redirect(url_for('simulation'))
 
 @app.route("/", methods=['POST', 'GET'])
 def index():
-    return render_template('index.html')
+    return redirect(url_for('simulation'))
 
 @app.route("/Teacher")
 def teacher():
@@ -127,8 +127,6 @@ def getTeacher():
 
 @app.route("/Simulation")
 def simulation():
-    if not 'uid' in session:
-        return redirect(url_for('index'))
     return render_template('simulate.html')
 
 @app.route("/SearchResult", methods=['POST'])
@@ -150,7 +148,7 @@ def search():
         }
         if request.form['unit'] != '%' :
             payload['unitId'] = request.form['unit']
-        s = session_pool[session['uid']]
+        s = public_session
         data = json.loads(s.post(host_url % search_url, data=payload).content)['data']
         return_data = []
         for i in data:

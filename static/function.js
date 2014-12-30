@@ -25,8 +25,8 @@ function search(){
                          .attr("time", d.courseTime)
                          .attr("message", "上課時間：" + d.Time + "<br>上課地點：" + d.courseRoom + "<br>上課班級：" + d.className + "<br>開課老師：" + d.courseTeacher)
                          .click(function(){
+                            check_login();
                             var temp = $(this).attr('time').split(",");
-                            if($(this).attr("message") == "衝堂"){ return false;}
                             search_action($(this), 'fill')
                             var clone = $(this).clone()
                             clone.click(function(){
@@ -101,7 +101,10 @@ function load_course(){
             }
         },
         "JSON"
-    );
+    ).fail(function(){
+        $(".lightbox").fadeIn('500');
+        $(".frame").fadeIn('500');        
+    });
 }
 
 function search_action(resource, action){
@@ -211,4 +214,25 @@ function load_unit(){
             $("#unit").html($("unit").html() + success);
         }
     );
+}
+
+function checked(){
+    $(".frame").fadeOut('1000');
+    $.post(
+        '/check_login',
+        {
+            username: $("#Users").val(),
+            password: $("#Password").val()
+        },
+        function(success){
+            message = eval(success);
+            if(message.success){
+                $(".lightbox").fadeOut('500');
+                save();
+                load_course();
+            }else{
+                alert(message.message);
+                $(".frame").fadeIn('1000');
+            }
+        },"json");
 }
