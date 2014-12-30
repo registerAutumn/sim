@@ -198,3 +198,12 @@ function restore(){
         "JSON"
     );
 }
+function load_unit(){
+    $.post(
+        "/getUnit",
+        {},
+        function(success){
+            $("#unit").html($("unit").html() + success);
+        }
+    );
+}

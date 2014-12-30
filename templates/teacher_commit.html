@@ -23,8 +23,12 @@
           </div><!-- /.container-fluid -->
         </nav>
         <div class="upper">
-            <select name="unit" onChange='getTeacher()' id="unit" class="unit"></select>
-            <select name="teacher" id="teacher" class="teacher"></select>
+            <select name="unit" id="unit" class="form-control-static"></select>
+            <input type="text" class="form-control-static col-4" id="keys" placeholder="搜尋課程名稱">
+            <input type='button' value='搜尋' onclick="search()" class='btn btn-primary'><br />
+        </div>
+        <div class="lower">
+            <div class="block"></div>
         </div>
     </body>
 </html>

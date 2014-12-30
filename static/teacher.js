@@ -3,19 +3,29 @@ $(document).ready(function(){
         "/getUnit",
         {},
         function(success){
-            $("#unit").html(success);
-            getTeacher();
+            $("#unit").html($("unit").html() + success);
         }
     );    
 });
 
-function getTeacher(){
+function search(){
+    $(".lower").children("div").remove();
     $.post(
-        "/getTeacher",
+        "/getTeacherList",
         {
-            'unit': $("#unit").val()
-        },function(success){
-            $("#teacher").html(success);
-        }
-    );
+            keys: $("#keys").val(),
+            unit: $("#unit").val()
+        },
+        function(success){
+            var temp = eval(success).data;
+            for(var teacher in temp){
+                var t = temp[teacher]
+                var block = $("<div>").addClass('block');
+                var title = $("<h3>").text(t.courseName + "－" + teacher);
+                title.appendTo(block);
+                block.appendTo($(".lower"));
+            }
+        },
+        "JSON"
+    )
 }

@@ -17,6 +17,7 @@ select_sql = "select * from course_store where course_uid = '%s'"
 delete_sql = "delete from course_store where course_uid = '%s'"
 
 session_pool = {}
+public_session = requests.session()
 
 week = ["M", "第一節", "第二節", "第三節", "第四節", "A", "第五節", "第六節", "第七節",\
          "第八節", "B", "第十一節", "第十二節", "第十三節", "第十四節"]
@@ -65,24 +66,47 @@ def teacher():
 @app.route("/getUnit", methods=['POST'])
 def getUnit():
     if request.method == 'POST':
-        return_string = ""
+        return_string = u"<option value='%'>所有科系</option>"
         html = "<optgroup label='%s'>"
         for i in content:
             return_string += html % i
-            option = "<option value='%s,%s'>%s</option>"
+            option = "<option value='%s'>%s</option>"
             for j in content[i]:
-                return_string += option % (i, j, j) 
+                return_string += option % (content[i][j], j) 
         return return_string
 
-@app.route("/getTeacher", methods=['POST'])
+@app.route("/getTeacherList", methods=['POST'])
 def getTeacher():
     if request.method == 'POST':
-        unit = request.form['unit'].split(',')
-        return_string = ""
-        option = "<option value='%s'>%s</option>"
-        for i in content[unit[0]][unit[1]]:
-            return_string += option % (i.encode('utf-8', 'ignore'), i.encode('utf-8', 'ignore'))
-        return return_string
+        message = {
+            'success': True
+        }
+        key = "%"
+        for n in xrange(0, len(request.form['keys'])):
+            key += request.form['keys'][n:n+1] + "%"
+        payload = {
+            'apiKey': API_KEY,
+            'academicYear': 103,
+            'academicSms': 2,
+            'courseName': key,
+            'degreeId': '14',
+        }
+        if request.form['unit'] != '%' :
+            payload['unitId'] = request.form['unit']
+        data = json.loads(public_session.post(host_url % search_url, data=payload).content)['data']
+        return_data = {}
+        for i in data:
+            if not i['courseTeacher'] == " ":
+                if not i['courseTeacher'] in return_data:
+                    return_data[i['courseTeacher']] = {}
+                    return_data[i['courseTeacher']]['open_class'] = []
+                    return_data[i['courseTeacher']]['comment'] = []
+                    return_data[i['courseTeacher']]['courseName'] = i['courseName']
+                return_data[i['courseTeacher']]['open_class'].append(i['className'])
+        message['data'] = return_data
+        return json.dumps(message)
+    else:
+        return "ERROR"            
 
 @app.route("/Simulation")
 def simulation():
@@ -96,11 +120,14 @@ def search():
         message = {
             'success': True
         }
+        key = "%"
+        for n in xrange(0, len(request.form['key'])):
+            key += request.form['key'][n:n+1] + "%"
         payload = {
             'apiKey': API_KEY,
             'academicYear': 103,
             'academicSms': 2,
-            'courseName': '%' + request.form['key'] + '%',
+            'courseName': key,
             'degreeId': '14',
         }
         if request.form['unit'] != '%' :
