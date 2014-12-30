@@ -49,6 +49,12 @@ body{
     float: left;
 }
 
+.search{
+  margin-top: 5px;
+  height: auto;
+
+}
+
 .right{
     width: 70%;
     height: 100%;
@@ -72,7 +78,7 @@ body{
     overflow-y: auto;
     border: 1px solid #ababab;
     border-radius: 0px;
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 .detail>li{
@@ -111,6 +117,10 @@ body{
     line-height: 20px;
     font-size: 16px;
     text-align: center;
+}
+
+input[type=radio]{
+  line-height: 36px;
 }
 
 .Search-button {

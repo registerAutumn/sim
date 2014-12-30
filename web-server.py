@@ -115,9 +115,7 @@ def getTeacher():
                     return_data[i['courseTeacher']]['courseName'] = i['courseName']
                 return_data[i['courseTeacher']]['open_class'].append(i['className'])
                 cursor.execute(select_comment_sql % (i['courseTeacher'], i['courseName']))
-                print select_comment_sql % (i['courseTeacher'], i['courseName'])
                 result = cursor.fetchall()
-                print len(result)
                 if len(result) != 0:
                     for j in result:
                         courseName, courseClass, comment = j

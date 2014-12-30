@@ -38,7 +38,7 @@ function search(){
                                                 "/addComment",
                                                 {
                                                     courseName: title,
-                                                    data: data
+                                                    data: escape(data)
                                                 },
                                                 function(){
                                                     search();
@@ -50,7 +50,7 @@ function search(){
                 submits.appendTo(p);
                 p.appendTo(block);
                 for (var i = 0; i < t.comment.length; i++) {
-                    var li = $("<li>").text(t.comment[i]);
+                    var li = $("<li>").text(unescape(t.comment[i]));
                     li.appendTo(block);
                     //console.log(li);
                 }
