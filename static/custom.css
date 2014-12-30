@@ -8,6 +8,23 @@ body{
   height: 70px;
   padding-top:10px;
   text-align: center;
+  border-bottom: 1px solid #bcbcbc;
+}
+
+.lower{
+  width: 100%;
+  height: auto;
+}
+
+.block{
+  width: 70%;
+  height: 200px;
+  border: 1px solid #FF8800;
+  border-radius: 5px;
+  background: #FFBB66;
+  margin: auto;
+  margin-top: 20px;
+  padding-left: 10px;
 }
 
 .left{
