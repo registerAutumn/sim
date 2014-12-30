@@ -120,6 +120,7 @@ def search():
         message = {
             'success': True
         }
+        types = request.form['type']
         key = "%"
         for n in xrange(0, len(request.form['key'])):
             key += request.form['key'][n:n+1] + "%"
@@ -144,7 +145,15 @@ def search():
             d['Time'] = i['courseTime']
             d['courseRoom'] = i['courseRoom']
             d['courseTime'] = courseTime
-            return_data.append(d);
+            check = ('MA' in d['courseRoom'] or 'MB' in d['courseRoom'] or u'燕巢' in d['className'])
+            if types == '1':
+                if not check:
+                    return_data.append(d);
+            elif types == '2':
+                if check:
+                    return_data.append(d);
+            else:
+                return_data.append(d);
         message['data'] = return_data
         return json.dumps(message)
     else:

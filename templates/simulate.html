@@ -28,7 +28,10 @@
                 <option value="%" selected="">所有科系</option>
             </select>
             <br>
-            <input type="text" class="form-control-static col-lg-8" id="keys" placeholder="搜尋課程名稱">
+            <input type="text" class="form-control-static col-lg-8" id="keys" placeholder="搜尋課程名稱"><br/><br/>
+            <input type="radio" id='a1' name='options' value='0' checked><label for="a1">不分校區</label>
+            <input type="radio" id='a2' name='options' value='1'><label for="a2">建工校區</label>
+            <input type="radio" id='a3' name='options' value='2'><label for="a3">燕巢校區</label>
             <input type='button' value='搜尋' onclick="search()" class='btn btn-primary pull-right col-lg-2'><br />
             </br><div id="show" class="detail">
             </div>

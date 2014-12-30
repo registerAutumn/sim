@@ -1,11 +1,16 @@
 var cols = "零一二三四五六日";
 function search(){
+    options = $("input[type=radio]");
+    for (var i = 0; i < options.length; i++) {
+        if(options[i].checked){break;}
+    };
     $("#show>li").remove();
     $.post(
         "/SearchResult",
         {
             key: $("#keys").val(),
-            unit: $("#unit").val()
+            unit: $("#unit").val(),
+            type: i
         },
         function(success){
             data = eval(success).data;
@@ -18,7 +23,7 @@ function search(){
                 var li = $("<li>")
                          .attr("teacher", d.courseTeacher)
                          .attr("time", d.courseTime)
-                         .attr("message", "上課時間：" + d.Time + "<br>上課地點：" + d.courseRoom + "<br>上課班級：" + d.className)
+                         .attr("message", "上課時間：" + d.Time + "<br>上課地點：" + d.courseRoom + "<br>上課班級：" + d.className + "<br>開課老師：" + d.courseTeacher)
                          .click(function(){
                             var temp = $(this).attr('time').split(",");
                             if($(this).attr("message") == "衝堂"){ return false;}
