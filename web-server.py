@@ -3,20 +3,18 @@ from flask import Flask, render_template, request, session
 from flask import redirect, url_for
 from lxml import etree
 import requests
-import MySQLdb
+import sqlite3
 import json
 import time
 import os
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
-db = MySQLdb.connect("localhost", "Simulate", "Simulate", "simulate", charset="utf8")
-cursor = db.cursor()
 
-insert_sql = "insert into course_store value('%s', '%s')"
-insert_comment_sql = "insert into teacher_comment value('%s', '%s', '%s')"
+insert_sql = "insert into course_store values('%s', '%s')"
+insert_comment_sql = "insert into teacher_comment values('%s', '%s', '%s')"
 select_sql = "select * from course_store where course_uid = '%s'"
-select_comment_sql = "select * from teacher_comment where teacher_name='%s' && teacher_class='%s'"
+select_comment_sql = "select * from teacher_comment where teacher_name='%s' and teacher_class='%s'"
 delete_sql = "delete from course_store where course_uid = '%s'"
 
 session_pool = {}
@@ -71,8 +69,7 @@ def addComment():
     if request.method == 'POST':
         courseName = request.form['courseName'].split(",")
         comment = request.form['data']
-        cursor.execute(insert_comment_sql % (courseName[1], courseName[0], comment))
-        db.commit()
+        connects(insert_comment_sql % (courseName[1], courseName[0], comment))
         return json.dumps({"success": True})
 
 @app.route("/getUnit", methods=['POST'])
@@ -115,12 +112,14 @@ def getTeacher():
                     return_data[i['courseTeacher']]['comment'] = []
                     return_data[i['courseTeacher']]['courseName'] = i['courseName']
                 return_data[i['courseTeacher']]['open_class'].append(i['className'])
-                cursor.execute(select_comment_sql % (i['courseTeacher'], i['courseName']))
-                result = cursor.fetchall()
-                if len(result) != 0:
+                result = connects(select_comment_sql % (i['courseTeacher'], i['courseName']))
+                if lens(result) != 0:
+                    result = connects(select_comment_sql % (i['courseTeacher'], i['courseName']))
                     for j in result:
+                        print j
                         courseName, courseClass, comment = j
                         return_data[i['courseTeacher']]['comment'].append(comment)
+                        print return_data[i['courseTeacher']]['comment']
         message['data'] = return_data
         return json.dumps(message)
     else:
@@ -238,10 +237,10 @@ def restore():
         msg = {}
         msg['success'] = True
         if check(session['uid']) :
-            cursor.execute(select_sql % session['uid'])
-            result = cursor.fetchall()
-            uid, table = result[0]
-            msg['table'] = table
+            result = connects(select_sql % session['uid'])
+            for row in result:
+                uid, table = row
+                msg['table'] = table
         else:
             msg['success'] = False
 
@@ -253,29 +252,39 @@ def store():
     if request.method == 'POST':
         data = request.form['data']
         if check(session['uid']):
-            cursor.execute( delete_sql % session['uid'])
-            db.commit()
+            connects( delete_sql % session['uid'])
         if data != "":
             if data.find("script") != -1: 
                 return json.dumps({"success": False})
-            cursor.execute( insert_sql % (session['uid'], data))
-            db.commit()
+            connects( insert_sql % (session['uid'], data))
         return json.dumps({"success": True})
     return "Error"
 
 def check(uid):
     sql = select_sql % uid
-    cursor.execute(sql)
-    result = cursor.fetchall()
-    return not len(result) == 0
+    result = connects(sql)
+    return not lens(result) == 0
 
-def setReconnect():
-    time.sleep(60 * 60 * 12)
-    db = MySQLdb.connect("localhost", "Simulate", "Simulate", "simulate", charset="utf8")
+def connects(sql):
+    db = sqlite3.connect("./Course_DB")
     cursor = db.cursor()
-    setReconnect()
+    if 'select' in sql:
+        cursor.execute(sql)
+        return cursor
+    else:
+        try:
+            with db:
+                db.execute(sql)
+                return True
+        except Exception, e:
+            return False
+    db.close()
 
+def lens(result):
+    count = 0
+    for i in result:
+        count += 1
+    return count
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', debug=True, port=35189)
-    setReconnect()
+    app.run(host='127.0.0.1', debug=True, port=35189)

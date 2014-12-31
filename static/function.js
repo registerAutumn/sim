@@ -181,7 +181,6 @@ function save(){
 }
 
 function restore(){
-    $("#show>li").remove();
     $("#remove>li").remove();
     $.post(
         "/restore",
