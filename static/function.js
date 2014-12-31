@@ -34,6 +34,7 @@ function search(){
                                     search_action($(this), 'remove');
                                     $(this).remove();
                                 }
+                                search();
                             });
                             clone.appendTo("#remove");
                             $(this).remove();

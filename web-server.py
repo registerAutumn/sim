@@ -5,6 +5,7 @@ from lxml import etree
 import requests
 import MySQLdb
 import json
+import time
 import os
 
 app = Flask(__name__)
@@ -268,5 +269,13 @@ def check(uid):
     result = cursor.fetchall()
     return not len(result) == 0
 
+def setReconnect():
+    time.sleep(60 * 60 * 12)
+    db = MySQLdb.connect("localhost", "Simulate", "Simulate", "simulate", charset="utf8")
+    cursor = db.cursor()
+    setReconnect()
+
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True, port=35189)
+    setReconnect()
