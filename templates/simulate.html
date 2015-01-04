@@ -8,6 +8,7 @@
         <link rel="shortcut icon" href="http://www.iconarchive.com/download/i62003/gianni-polito/colobrush/game-the-sims.ico">
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
         <script src="static/bootstrap.js"></script>
+        <script src="static/html2canvas.js"></script>
         <script src="static/function.js"></script>
     </head>
     <body>
@@ -58,6 +59,7 @@
             <div id="remove" class="detail">
             </div>
             <input type='button' value='暫存課表' onclick="save()" class='btn btn-primary' style='margin-right: 10px;margin-top: 5px;'>
+            <input type='button' value='匯出課表' onclick="exports()" class='btn btn-primary' style='margin-right: 10px;margin-top: 5px;'>
             <input type='button' value='載入暫存' onclick="load_course()" class='btn btn-primary pull-right' style='margin-top: 5px;'>
         </div>
         <div class="right">
@@ -213,9 +215,6 @@
                     <td valign="middle" width='200' align='center'>&nbsp;</td>
                 </tr>
             </table>
-        </div>
-        <div class="footer">
-            By <a href="http://github.com/registerautumn">Autumn</a>
         </div>
     </body>
     <script>

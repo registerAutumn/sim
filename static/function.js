@@ -234,3 +234,19 @@ function checked(){
             }
         },"json");
 }
+
+function exports(){
+        html2canvas($("table").eq(0),{
+            onrendered:function(canvas){
+                document.body.appendChild(canvas)
+                var data = document.getElementsByTagName('canvas')[0];
+                var a = document.createElement("a");
+                a.href = data.toDataURL();
+                a.download = "Course.jpg";
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                $("canvas").remove();
+            }
+        })
+}
