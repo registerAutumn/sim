@@ -1,8 +1,8 @@
 var cols = "零一二三四五六日";
 function search(){
-    options = $("input[type=radio]");
+    options = $("input[name=option]");
     for (var i = 0; i < options.length; i++) {
-        if(options[i].checked){break;}
+        if($(options[i]).hasClass('toggle')){break;}
     };
     $("#show>li").remove();
     $.post(
@@ -27,7 +27,7 @@ function search(){
                          .click(function(){
                             var temp = $(this).attr('time').split(",");
                             search_action($(this), 'fill')
-                            var clone = $(this).clone()
+                            var clone = $(this).clone();
                             clone.click(function(){
                                 var check = confirm('確定要刪除?');
                                 if(check){
@@ -35,6 +35,9 @@ function search(){
                                     $(this).remove();
                                 }
                                 search();
+                            }).mouseover(function(){
+                                $(".explain").eq(0).html($(this).attr('message'));
+                                $(".explain").eq(0).css("display", "block");
                             });
                             clone.appendTo("#remove");
                             $(this).remove();
@@ -197,6 +200,9 @@ function restore(){
                             search_action($(this), 'remove');
                             $(this).remove();
                         }
+                    }).mouseover(function(){
+                                $(".explain").eq(0).html($(this).attr('message'));
+                                $(".explain").eq(0).css("display", "block");
                     }).appendTo($("#remove"));
 
                 }
@@ -249,4 +255,9 @@ function exports(){
                 $("canvas").remove();
             }
         })
+}
+
+function toggle(clicks){
+    $("input[name=option]").removeClass('toggle');
+    $(clicks).addClass('toggle');
 }

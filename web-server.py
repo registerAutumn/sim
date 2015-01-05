@@ -188,7 +188,6 @@ def login():
         if login_status:
             session['uid'] = username
             message['success'] = True
-            message['redirect_url'] = '/Simulation'
             return json.dumps(message)
         else:
             message['message'] = "登入失敗\n\r帳號或密碼有錯誤"
