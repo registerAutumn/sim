@@ -1,12 +1,14 @@
 #-*- encoding: utf-8
+
+import os
+import json
+import sqlite3
+import requests
+
 from flask import Flask, render_template, request, session
 from flask import redirect, url_for
 from lxml import etree
-import requests
-import sqlite3
-import json
-import time
-import os
+
 
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
@@ -18,10 +20,12 @@ select_comment_sql = "select * from teacher_comment where teacher_name='%s' and 
 delete_sql = "delete from course_store where course_uid = '%s'"
 
 session_pool = {}
-public_session = requests.session()
+public_session = requests.Session()
 
-week = ["M", "第一節", "第二節", "第三節", "第四節", "A", "第五節", "第六節", "第七節",\
-         "第八節", "B", "第十一節", "第十二節", "第十三節", "第十四節"]
+
+weekday = [u"時間", u"一", u"二", u"三", u"四", u"五", u"六", u"日"]
+class_session = [u"M", u"第一節", u"第二節", u"第三節", u"第四節", u"A", u"第五節", u"第六節", u"第七節",\
+                u"第八節", u"B", u"第十一節", u"第十二節", u"第十三節", u"第十四節"]
 
 times = [
             "<br/>0730<br/>-<br/>0800",
@@ -48,7 +52,7 @@ search_url = "Course/GetCourse"
 
 API_KEY = "5Dcb9a^J5ULIR^e"
 
-files = open('teacher', 'rb')
+files = open('teacher', 'r')
 content = files.read()
 content = json.loads(content)
 
@@ -116,10 +120,10 @@ def getTeacher():
                 if lens(result) != 0:
                     result = connects(select_comment_sql % (i['courseTeacher'], i['courseName']))
                     for j in result:
-                        print j
+                        print(j)
                         courseName, courseClass, comment = j
                         return_data[i['courseTeacher']]['comment'].append(comment)
-                        print return_data[i['courseTeacher']]['comment']
+                        print(return_data[i['courseTeacher']]['comment'])
         message['data'] = return_data
         return json.dumps(message)
     else:
@@ -127,7 +131,8 @@ def getTeacher():
 
 @app.route("/Simulation")
 def simulation():
-    return render_template('simulate.html')
+    return render_template('simulate.html', class_session=class_session, weekday=weekday)
+
 
 @app.route("/SearchResult", methods=['POST'])
 def search():
@@ -221,7 +226,7 @@ def getCourse():
     format = "<td width='200' align='center' tags='%s'>%s</td>"
     row = []
     for i in td:
-        row = [format % (week[count / 7] + times[count / 7], week[count / 7])] if count % 7 == 0 else row
+        row = [format % (class_session[count / 7] + times[count / 7], class_session[count / 7])] if count % 7 == 0 else row
         content = i.text.replace(' ', '').replace('\n', '').replace('\r', '')
         row.append(format % ('', content))
         count += 1
@@ -275,7 +280,7 @@ def connects(sql):
             with db:
                 db.execute(sql)
                 return True
-        except Exception, e:
+        except Exception as e:
             return False
     db.close()
 
