@@ -20,12 +20,12 @@ select_comment_sql = "select * from teacher_comment where teacher_name='%s' and 
 delete_sql = "delete from course_store where course_uid = '%s'"
 
 session_pool = {}
-public_session = requests.session()
+public_session = requests.Session()
 
 
-weekday = ["時間", "一", "二", "三", "四", "五", "六", "日"]
-class_session = ["M", "第一節", "第二節", "第三節", "第四節", "A", "第五節", "第六節", "第七節",\
-                "第八節", "B", "第十一節", "第十二節", "第十三節", "第十四節"]
+weekday = [u"時間", u"一", u"二", u"三", u"四", u"五", u"六", u"日"]
+class_session = [u"M", u"第一節", u"第二節", u"第三節", u"第四節", u"A", u"第五節", u"第六節", u"第七節",\
+                u"第八節", u"B", u"第十一節", u"第十二節", u"第十三節", u"第十四節"]
 
 times = [
             "<br/>0730<br/>-<br/>0800",

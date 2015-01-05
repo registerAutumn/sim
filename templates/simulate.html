@@ -25,34 +25,50 @@
     </form>
 </div>
 
-<!-- 我是神奇導航BAR -->
-<nav class="navbar navbar-default navbar-fixed-top">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="/">KUAS.CC</a>
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="margin-right: 20%;">
-      <ul class="nav navbar-nav navbar-left">
-        <li><a href="http://mail.kuas.cc">郵件快取</a></li>
-        <li class="active"><a href="http://course.kuas.cc/Simulation">模擬選課</a></li>
-        <li class=""><a href="http://course.kuas.cc/Teacher">老師評價</a></li>
-      </ul>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
-</nav>
-
 <div class="explain"></div>
 <div id="showTime" class="explain showTime"></div>
 <div class="left">
-    <select name="unit" id="unit" class="form-control">
-        <option value="%" selected="">所有科系</option>
-    </select>
-    <br>
-    <input type="text" class="form-control-static col-lg-6" id="keys" placeholder="搜尋課程名稱"><br/>
-    &nbsp;
+    <div class="row">
+        <div class="col-xs-12">
+            <select name="unit" id="unit" class="form-control">
+                <option value="%" selected="">所有科系</option>
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <input type="text" class="form-control" id="keys" placeholder="搜尋課程名稱">
+        </div>
+    </div>
+
     <input type="radio" id='a1' name='options' value='0' checked><label for="a1">不分校區</label>
     <input type="radio" id='a2' name='options' value='1'><label for="a2">建工</label>
     <input type="radio" id='a3' name='options' value='2'><label for="a3">燕巢</label>
-    <input type='button' value='搜尋' onclick="search()" class='btn btn-primary pull-right col-lg-2' style='padding: 0; margin:  0;height: 34px; position: relative; top: -15px;'>
+
+
+     <div class="row">
+        <div class="col-xs-12">
+            <div id="school-zone" class="btn-group btn-group-justified" role="group" data-toggle="buttons-radio">
+              <div class="btn-group" role="group">
+                <button type="button" class="active btn btn-primary" id="a1" data-value="0">不分校區</button>
+              </div>
+              <div class="btn-group" role="group">
+                <button type="button" class="btn btn-primary"  id="a2" data-value="1">建工</button>
+              </div>
+              <div class="btn-group" role="group">
+                <button type="button" class="btn btn-primary" id="a3" data-value="2">燕巢</button>
+              </div>
+            </div>
+        </div>  
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <input type='button' value='搜尋' onclick="search()" class='btn btn-primary btn-block'>
+        </div>
+    </div>
+
+
     </br><div id="show" class="detail">
     </div>
     <div id="remove" class="detail">
@@ -60,6 +76,7 @@
     <input type='button' value='暫存課表' onclick="save()" class='btn btn-primary' style='margin-right: 10px;margin-top: 5px;'>
     <input type='button' value='匯出課表' onclick="exports()" class='btn btn-primary' style='margin-right: 10px;margin-top: 5px;'>
     <input type='button' value='載入暫存' onclick="load_course()" class='btn btn-primary pull-right' style='margin-top: 5px;'>
+
 </div>
 <div class="right">
     <table class='responstable'>
@@ -95,5 +112,14 @@
     $("#show").mouseout(function(event){
         $(".explain").css("display", "none");
     });
+
+
+$('.btn-group button').click(function()
+{
+    $(this).parent().children().removeClass('active');
+    $(this).addClass('active');
+});
 </script>
+
+
 {% endblock %}
