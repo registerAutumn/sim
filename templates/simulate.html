@@ -63,156 +63,22 @@
 </div>
 <div class="right">
     <table class='responstable'>
+
+        {% for i in range(15) %}
         <tr>
-            <td valign="middle" width='200' align='center'>時間</td>
-            <td valign="middle" width='200' align='center'>一</td>
-            <td valign="middle" width='200' align='center'>二</td>
-            <td valign="middle" width='200' align='center'>三</td>
-            <td valign="middle" width='200' align='center'>四</td>
-            <td valign="middle" width='200' align='center'>五</td>
-            <td valign="middle" width='200' align='center'>六</td>
-            <td valign="middle" width='200' align='center'>日</td>
+            {% for j in range(8) %}
+                {% if i == 0 %}
+                    <td valign="middle" width='200' align='center'>{{ weekday[i] }}</td>
+                {% else %}
+                    {% if j == 0 %}
+                        <td valign="middle" width='200' align='center'>{{ class_session[i - 1] }}</td>
+                    {% else %}
+                        <td valign="middle" width='200' align='center'>&nbsp;</td>
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
         </tr>
-        <tr>
-            <td valign="middle" width='200' align='center'>M</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-        </tr>
-        <tr>
-            <td valign="middle" width='200' align='center'>第一節</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-        </tr>
-        <tr>
-            <td valign="middle" width='200' align='center'>第二節</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-        </tr>
-        <tr>
-            <td valign="middle" width='200' align='center'>第三節</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-        </tr>
-        <tr>
-            <td valign="middle" width='200' align='center'>第四節</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-        </tr>
-        <tr>
-            <td valign="middle" width='200' align='center'>第五節</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-        </tr>
-        <tr>
-            <td valign="middle" width='200' align='center'>第六節</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-        </tr>
-        <tr>
-            <td valign="middle" width='200' align='center'>第七節</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-        </tr>
-        <tr>
-            <td valign="middle" width='200' align='center'>第八節</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-        </tr>
-        <tr>
-            <td valign="middle" width='200' align='center'>第十節</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-        </tr>
-        <tr>
-            <td valign="middle" width='200' align='center'>第十一節</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-        </tr>
-        <tr>
-            <td valign="middle" width='200' align='center'>第十二節</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-        </tr>
-        <tr>
-            <td valign="middle" width='200' align='center'>第十三節</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-        </tr>
-        <tr>
-            <td valign="middle" width='200' align='center'>第十四節</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-            <td valign="middle" width='200' align='center'>&nbsp;</td>
-        </tr>
+        {% endfor %}
     </table>
 </div>
 
