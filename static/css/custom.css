@@ -19,12 +19,13 @@ body{
 .block{
   width: 70%;
   height: auto;
-  border: 1px solid #FF8800;
+  border: 1px solid #48cfad;
   border-radius: 5px;
-  background: #FFBB66;
+  background: #37BC9B;
   margin: auto;
   margin-top: 20px;
   padding-left: 10px;
+  color: #ffffff;
 }
 
 .block>li{
@@ -33,13 +34,17 @@ body{
   font-size: 18px;
   line-height: 25px;
   height: 25px;
+  max-width: 50% !important;
+  width: auto !important;
   margin-top: 5px;
   margin-right: 10px;
   margin-bottom: 5px;
+  margin-left: 3%;
   font-style: italic;
   border: 1px solid #77FF00;
   border-radius: 5px;
   background: #BBFF66;
+  color: #000000;
 }
 
 .left{
