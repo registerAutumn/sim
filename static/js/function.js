@@ -2,7 +2,7 @@ var cols = "零一二三四五六日";
 function search(){
     options = $("input[name=option]");
     for (var i = 0; i < options.length; i++) {
-        if($(options[i]).hasClass('toggle')){break;}
+        if($(options[i]).hasClass('btn-success')){break;}
     };
     $("#show>li").remove();
     $.post(
@@ -258,6 +258,6 @@ function exports(){
 }
 
 function toggle(clicks){
-    $("input[name=option]").removeClass('toggle');
-    $(clicks).addClass('toggle');
+    $("input[name=option]").removeClass('btn-success');
+    $(clicks).addClass('btn-success')
 }
