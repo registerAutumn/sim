@@ -45,9 +45,9 @@ times = [
             "<br/>2110<br/>-<br/>2200",
         ]
 
-host_url = "http://mss.kuas.edu.tw/api/%s"
-login_url = "http://140.127.113.231/kuas/perchk.jsp"
-course_url = "http://140.127.113.231/kuas/ag_pro/ag222.jsp"
+host_url = ""
+login_url = ""
+course_url = ""
 search_url = "Course/GetCourse"
 
 API_KEY = "5Dcb9a^J5ULIR^e"
