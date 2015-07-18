@@ -50,7 +50,7 @@ login_url = ""
 course_url = ""
 search_url = "Course/GetCourse"
 
-API_KEY = "5Dcb9a^J5ULIR^e"
+API_KEY = ""
 
 files = open('teacher', 'r')
 content = files.read()
